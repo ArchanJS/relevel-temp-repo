@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h2>Registratioin Form</h2>
+        <div class="div">
+            <label for="name">Name</label>
+            <input type="text" id="name" onchange="fieldValidate()">
+            <div id="errorName"></div>
+
+        </div>
+        <div class="div">
+            <label for="userName">User Name</label>
+            <input type="text" id="userName" onchange="fieldValidate()">
+            <div id="errorUserName"></div>
+
+        </div>
+        <div class="div">
+            <label for="password">Password</label>
+            <input type="password" id="password" onchange="fieldValidate()">
+            <div id="errorPassword"></div>
+
+        </div>
+        <div class="div">
+            <label for="reEnter">Re-enter Password</label>
+            <input type="password" id="reEnter" onchange="fieldValidate()">
+            <div id="errorReEnter"></div>
+        </div>
+        <div class="div">
+            <label for="email">Email-ID</label>
+            <input type="email" id="email" onchange="fieldValidate()">
+            <div id="errorMail"></div>
+        </div>
+        <div class="div">
+            <label for="mobile">Mobile Number</label>
+            <input type="text" id="mobile" onchange="fieldValidate()">
+            <div id="errorMobile"></div>
+        </div>
+        <br>
+        <button id="register" onclick="details()">Register</button>
+    </div>
+    <div id="success"></div>
+    <div id="result"></div>
+
+    <script>
+        var fieldValidate = () => {
+
+        }
+        var generateErrorMessage = (message) => {
+            return `<p  style="color: red;">${message}</p>`
+        }
+        var details = () => {
+            var profName = document.getElementById('name').value.trim();
+            var userName = document.getElementById('userName').value.trim();
+            var password = document.getElementById('password').value.trim();
+            var reEnter = document.getElementById('reEnter').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var mobile = document.getElementById('mobile').value.trim();
+
+            var flag = true;
+
+            if (!profName) {
+                document.getElementById('errorName').innerHTML = generateErrorMessage("Please enter name");
+                flag = false;
+            }
+            if (!userName) {
+                document.getElementById('errorUserName').innerHTML = generateErrorMessage("Please enter User Name");
+                flag = false;
+            }
+            if (!password) {
+                document.getElementById('errorPassword').innerHTML = generateErrorMessage("Please enter pasword");
+                flag = false;
+            }
+            if (!reEnter) {
+                document.getElementById('errorReEnter').innerHTML = generateErrorMessage("Please re-enter password");
+                flag = false;
+            }
+            if (!email) {
+                document.getElementById('errorMail').innerHTML = generateErrorMessage("Please enter mail");
+                flag = false;
+            }
+            if (!mobile) {
+                document.getElementById('errorMobile').innerHTML = generateErrorMessage("Please enter mobile no.");
+                flag = false;
+            }
+            if (flag === true) {
+                if (password.trim() != reEnter.trim()) {
+                    document.getElementById('errorReEnter').innerHTML = generateErrorMessage("Password and Re-type Password doesn't match");
+                }
+                else if(email[0]=='@'||email[email.length-1]=='@'||email[0]=='.'||email[email.length-1]=='.'||!email.includes('.')||!email.includes('@')){
+                    document.getElementById('errorMail').innerHTML=generateErrorMessage("Inavlid E-Mail. Please provide a valid Email-ID");
+                }
+                else if (mobile.length != 10) {
+                    document.getElementById("errorMobile").innerHTML = generateErrorMessage("Mobile number should have 10 digits");
+                }
+                else{
+                    document.getElementById('success').innerHTML=`<p  style="color: green;">Registered successfully</p><strong>User detils</strong><p>Name:${profName}</p><p>User Name:${userName}</p><p>Email-ID:${email}</p><p>Mobile:${mobile}</p>`;
+
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>
